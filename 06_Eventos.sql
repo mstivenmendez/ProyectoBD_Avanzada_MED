@@ -1,0 +1,20 @@
+--- 1. evt_generate_weekly_sales_report: Genera un reporte de ventas semanal.
+--- 2. evt_cleanup_temp_tables_daily: Borra tablas temporales diariamente.
+--- 3. evt_archive_old_logs_monthly: Archiva logs de más de 6 meses en tablas históricas.
+--- 4. evt_deactivate_expired_promotions_hourly: Desactiva códigos de descuento que han expirado.
+--- 5. evt_recalculate_customer_loyalty_tiers_nightly: Recalcula el nivel de lealtad de los clientes cada noche.
+--- 6. evt_generate_reorder_list_daily: Crea una lista de productos que necesitan ser reabastecidos.
+--- 7. evt_rebuild_indexes_weekly: Reconstruye los índices de las tablas más usadas para optimizar el rendimiento.
+--- 8. evt_suspend_inactive_accounts_quarterly: Desactiva cuentas de clientes sin actividad en más de un año.
+--- 9. evt_aggregate_daily_sales_data: Agrega los datos de ventas del día en una tabla de resumen para acelerar reportes.
+--- 10. evt_check_data_consistency_nightly: Busca inconsistencias en los datos (ej. ventas sin detalles).
+--- 11. evt_send_birthday_greetings_daily: Genera una lista de clientes que cumplen años para enviarles un cupón.
+--- 12. evt_update_product_rankings_hourly: Actualiza una tabla con el ranking de los productos más populares.
+--- 13. evt_backup_critical_tables_daily: Realiza un backup lógico de las tablas más importantes cada noche.
+--- 14. evt_clear_abandoned_carts_daily: Vacía los carritos de compra abandonados hace más de 72 horas.
+--- 15. evt_calculate_monthly_kpis: Calcula los KPIs (Key Performance Indicators) del mes y los guarda en una tabla.
+--- 16. evt_refresh_materialized_views_nightly: Actualiza las vistas materializadas (si se usan).
+--- 17. evt_log_database_size_weekly: Registra el tamaño de la base de datos para monitorear su crecimiento.
+--- 18. evt_detect_fraudulent_activity_hourly: Busca patrones de actividad sospechosa (ej. múltiples pedidos fallidos).
+--- 19. evt_generate_supplier_performance_report_monthly: Crea un reporte mensual sobre el rendimiento de los proveedores.
+--- 20. evt_purge_soft_deleted_records_weekly: Elimina permanentemente los registros marcados para borrado hace más de 30 días.

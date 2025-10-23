@@ -1,0 +1,20 @@
+--- 1. fn_CalcularTotalVenta: Calcula el monto total de una venta específica.
+--- 2. fn_VerificarDisponibilidadStock: Valida si hay stock suficiente para un producto.
+--- 3. fn_ObtenerPrecioProducto: Devuelve el precio actual de un producto.
+--- 4. fn_CalcularEdadCliente: Calcula la edad de un cliente a partir de su fecha de nacimiento.
+--- 5. fn_FormatearNombreCompleto: Devuelve el nombre y apellido de un cliente en un formato estandarizado.
+--- 6. fn_EsClienteNuevo: Devuelve VERDADERO si un cliente realizó su primera compra en los últimos 30 días.
+--- 7. fn_CalcularCostoEnvio: Calcula el costo de envío basado en el peso total de los productos de una venta.
+--- 8. fn_AplicarDescuento: Aplica un porcentaje de descuento a un monto dado.
+--- 9. fn_ObtenerUltimaFechaCompra: Devuelve la fecha de la última compra de un cliente.
+--- 10. fn_ValidarFormatoEmail: Comprueba si una cadena de texto tiene un formato de correo electrónico válido.
+--- 11. fn_ObtenerNombreCategoria: Devuelve el nombre de la categoría a partir del ID de un producto.
+--- 12. fn_ContarVentasCliente: Cuenta el número total de compras realizadas por un cliente.
+--- 13. fn_CalcularDiasDesdeUltimaCompra: Devuelve el número de días transcurridos desde la última compra de un cliente.
+--- 14. fn_DeterminarEstadoLealtad: Asigna un estado de lealtad (Bronce, Plata, Oro) a un cliente según su gasto total.
+--- 15. fn_GenerarSKU: Genera un código de producto (SKU) único basado en su nombre y categoría.
+--- 16. fn_CalcularIVA: Calcula el impuesto (IVA) sobre el total de una venta.
+--- 17. fn_ObtenerStockTotalPorCategoria: Suma el stock de todos los productos de una categoría.
+--- 18. fn_EstimarFechaEntrega: Calcula la fecha estimada de entrega de un pedido según la ubicación del cliente.
+--- 19. fn_ConvertirMoneda: Convierte un monto a otra moneda usando una tasa de cambio fija.
+--- 20. fn_ValidarComplejidadContraseña: Verifica si una contraseña cumple con los criterios de seguridad (longitud, caracteres, etc.).
