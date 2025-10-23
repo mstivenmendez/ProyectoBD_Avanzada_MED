@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `nombre` VARCHAR(100) NOT NULL,
   `apellido` VARCHAR(100) NOT NULL,
   `email` VARCHAR(120) NOT NULL,
-  `contraseña` VARCHAR(25) NOT NULL,
+  `contrasena` VARCHAR(25) NOT NULL,
   `fecha_registro` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_cliente`))
 ENGINE = InnoDB
