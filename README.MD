@@ -38,7 +38,7 @@ Este proyecto tiene como objetivo diseñar y desarrollar una base de datos compl
 
 Para construir y probar la base de datos, sigue el siguiente orden de ejecución de los archivos `.sql`:
 
-# 1. **`Esquema_y_Datos`**
+# 1. **`Esquema y Datos`**
    - Ejecutar este archivo primero para crear todas las tablas de la base de datos y cargar los datos iniciales (estructura y registros de ejemplo).
 
   # 1.1  ecommerce_ddl
