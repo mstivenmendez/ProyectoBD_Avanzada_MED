@@ -40,13 +40,13 @@ CREATE TABLE IF NOT EXISTS `e_commerce_db`.`cliente` (
   `nombre` VARCHAR(100) NOT NULL,
   `apellido` VARCHAR(100) NOT NULL,
   `email` VARCHAR(120) NOT NULL,
-  `contraseña` VARCHAR(25) NOT NULL,
+  `clave` VARCHAR(25) NOT NULL,
   `fecha_registro` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_nacimiento` VARCHAR(45) NOT NULL,
   `estado` ENUM('activo', 'inactivo') NULL DEFAULT 'activo',
   `ultima_compra` DATETIME NULL,
   `membresia` ENUM('oro', 'plata', 'bronce') NULL,
-  `puntos` VARCHAR(45) NULL,
+  `puntos` INT NULL,
   PRIMARY KEY (`id_cliente`),
   UNIQUE INDEX `email` (`email` ASC) VISIBLE,
   UNIQUE INDEX `id_cliente_UNIQUE` (`id_cliente` ASC) VISIBLE)
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `e_commerce_db`.`direccion_envio` (
   `ciudad` VARCHAR(45) NOT NULL,
   `barrio` VARCHAR(45) NOT NULL,
   `calle` VARCHAR(45) NOT NULL,
-  `tipo` ENUM('Envio', 'Facturacion', 'Oficina', 'Otro') NULL DEFAULT NULL,
+  `tipo` ENUM('Apartamento', 'Casa', 'Oficina', 'Otro') NULL DEFAULT NULL,
   PRIMARY KEY (`id_direccion_envio`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
