@@ -18,21 +18,6 @@ CREATE SCHEMA IF NOT EXISTS `e_commerce_db` DEFAULT CHARACTER SET utf8mb4 COLLAT
 USE `e_commerce_db` ;
 
 -- -----------------------------------------------------
--- Table `e_commerce_db`.`categoria`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce_db`.`categoria` (
-  `id_categoria` INT NOT NULL AUTO_INCREMENT,
-  `descripcion` TEXT NOT NULL,
-  `nombre` ENUM('Calzado', 'Ropa', 'Electronico', 'Hogar') NOT NULL,
-  `iva` DECIMAL(5,2) NULL,
-  PRIMARY KEY (`id_categoria`),
-  UNIQUE INDEX `nombre_UNIQUE` (`nombre` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
 -- Table `e_commerce_db`.`cliente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `e_commerce_db`.`cliente` (
@@ -44,12 +29,67 @@ CREATE TABLE IF NOT EXISTS `e_commerce_db`.`cliente` (
   `fecha_registro` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_nacimiento` VARCHAR(45) NOT NULL,
   `estado` ENUM('activo', 'inactivo') NULL DEFAULT 'activo',
-  `ultima_compra` DATETIME NULL,
-  `membresia` ENUM('oro', 'plata', 'bronce') NULL,
-  `puntos` INT NULL,
+  `ultima_compra` DATETIME NULL DEFAULT NULL,
+  `membresia` ENUM('oro', 'plata', 'bronce') NULL DEFAULT NULL,
+  `puntos` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id_cliente`),
   UNIQUE INDEX `email` (`email` ASC) VISIBLE,
   UNIQUE INDEX `id_cliente_UNIQUE` (`id_cliente` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `e_commerce_db`.`producto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `e_commerce_db`.`producto` (
+  `id_producto` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(150) NOT NULL,
+  `descripcion` TEXT NULL DEFAULT NULL,
+  `precio` DECIMAL(10,2) NULL DEFAULT NULL,
+  `precio_iva` DECIMAL(10,2) NULL DEFAULT NULL,
+  `activo` TINYINT NULL DEFAULT NULL,
+  `peso` DECIMAL(10,2) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_producto`),
+  UNIQUE INDEX `nombre` (`nombre` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `e_commerce_db`.`carrito`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `e_commerce_db`.`carrito` (
+  `id_carrito` INT NOT NULL AUTO_INCREMENT,
+  `id_producto_fk` INT NOT NULL,
+  `id_cliente_fk` INT NOT NULL,
+  `cantidad` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`id_carrito`),
+  INDEX `fk_carrito_producto1_idx` (`id_producto_fk` ASC) VISIBLE,
+  INDEX `fk_carrito_cliente1_idx` (`id_cliente_fk` ASC) VISIBLE,
+  CONSTRAINT `fk_carrito_cliente1`
+    FOREIGN KEY (`id_cliente_fk`)
+    REFERENCES `e_commerce_db`.`cliente` (`id_cliente`),
+  CONSTRAINT `fk_carrito_producto1`
+    FOREIGN KEY (`id_producto_fk`)
+    REFERENCES `e_commerce_db`.`producto` (`id_producto`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `e_commerce_db`.`categoria`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `e_commerce_db`.`categoria` (
+  `id_categoria` INT NOT NULL AUTO_INCREMENT,
+  `descripcion` TEXT NOT NULL,
+  `nombre` ENUM('Calzado', 'Ropa', 'Electronico', 'Hogar') NOT NULL,
+  `iva` DECIMAL(5,2) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_categoria`),
+  UNIQUE INDEX `nombre_UNIQUE` (`nombre` ASC) VISIBLE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -91,18 +131,16 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `e_commerce_db`.`producto`
+-- Table `e_commerce_db`.`descuento`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce_db`.`producto` (
-  `id_producto` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(150) NOT NULL,
-  `descripcion` TEXT NULL DEFAULT NULL,
-  `precio` DECIMAL(10,2) NULL DEFAULT NULL,
-  `precio_iva` DECIMAL(10,2) NULL,
-  `activo` TINYINT NULL DEFAULT NULL,
-  `peso` DECIMAL(10,2) NULL,
-  PRIMARY KEY (`id_producto`),
-  UNIQUE INDEX `nombre` (`nombre` ASC) VISIBLE)
+CREATE TABLE IF NOT EXISTS `e_commerce_db`.`descuento` (
+  `id_descuento` INT NOT NULL,
+  `tipo` ENUM('puntos', 'cumpleaños', 'categoria', 'producto') NULL DEFAULT NULL,
+  `valor` DECIMAL(10,2) NULL DEFAULT NULL,
+  `nombre` ENUM('porcentaje') NULL DEFAULT 'porcentaje',
+  `fecha_inicio` DATETIME NULL DEFAULT NULL,
+  `fecha_fin` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`id_descuento`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -176,6 +214,19 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
+-- Table `e_commerce_db`.`tarifa_envio`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `e_commerce_db`.`tarifa_envio` (
+  `id_tarifa_envio` INT NOT NULL AUTO_INCREMENT,
+  `tipo` ENUM('liviano', 'mediano', 'pesado') NULL DEFAULT NULL,
+  `valor` DECIMAL(10,2) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_tarifa_envio`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `e_commerce_db`.`tienda`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `e_commerce_db`.`tienda` (
@@ -187,31 +238,6 @@ CREATE TABLE IF NOT EXISTS `e_commerce_db`.`tienda` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `e_commerce_db`.`descuento`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce_db`.`descuento` (
-  `id_descuento` INT NOT NULL,
-  `tipo` ENUM('puntos', 'cumpleaños', 'categoria', 'producto') NULL,
-  `valor` DECIMAL(10,2) NULL,
-  `nombre` ENUM('porcentaje') NULL DEFAULT 'porcentaje',
-  `fecha_inicio` DATETIME NULL,
-  `fecha_fin` DATETIME NULL,
-  PRIMARY KEY (`id_descuento`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `e_commerce_db`.`tarifa_envio`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce_db`.`tarifa_envio` (
-  `id_tarifa_envio` INT NOT NULL AUTO_INCREMENT,
-  `tipo` ENUM('liviano', 'mediano', 'pesado') NULL,
-  `valor` DECIMAL(10,2) NULL,
-  PRIMARY KEY (`id_tarifa_envio`))
-ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -234,19 +260,15 @@ CREATE TABLE IF NOT EXISTS `e_commerce_db`.`venta` (
   CONSTRAINT `fk_venta_cliente1`
     FOREIGN KEY (`id_cliente_fk`)
     REFERENCES `e_commerce_db`.`cliente` (`id_cliente`),
-  CONSTRAINT `fk_venta_tienda1`
-    FOREIGN KEY (`id_tienda_fk`)
-    REFERENCES `e_commerce_db`.`tienda` (`id_tienda`),
   CONSTRAINT `fk_venta_descuento1`
     FOREIGN KEY (`id_descuento_fk`)
-    REFERENCES `e_commerce_db`.`descuento` (`id_descuento`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `e_commerce_db`.`descuento` (`id_descuento`),
   CONSTRAINT `fk_venta_tarifa_envio1`
     FOREIGN KEY (`id_tarifa_envio_fk`)
-    REFERENCES `e_commerce_db`.`tarifa_envio` (`id_tarifa_envio`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `e_commerce_db`.`tarifa_envio` (`id_tarifa_envio`),
+  CONSTRAINT `fk_venta_tienda1`
+    FOREIGN KEY (`id_tienda_fk`)
+    REFERENCES `e_commerce_db`.`tienda` (`id_tienda`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -294,34 +316,6 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `e_commerce_db`.`telefono`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce_db`.`telefono` (
-  `id_telefono` INT NOT NULL AUTO_INCREMENT,
-  `telefono` VARCHAR(15) NULL DEFAULT NULL,
-  `id_proveedor_fk` INT NOT NULL,
-  `id_pais_fk` INT NOT NULL,
-  `id_cliente_fk` INT NOT NULL,
-  PRIMARY KEY (`id_telefono`),
-  UNIQUE INDEX `telefono_UNIQUE` (`telefono` ASC) VISIBLE,
-  INDEX `fk_telefono_proveedor1_idx` (`id_proveedor_fk` ASC) VISIBLE,
-  INDEX `fk_telefono_pais1_idx` (`id_pais_fk` ASC) VISIBLE,
-  INDEX `fk_telefono_cliente1_idx` (`id_cliente_fk` ASC) VISIBLE,
-  CONSTRAINT `fk_telefono_cliente1`
-    FOREIGN KEY (`id_cliente_fk`)
-    REFERENCES `e_commerce_db`.`cliente` (`id_cliente`),
-  CONSTRAINT `fk_telefono_pais1`
-    FOREIGN KEY (`id_pais_fk`)
-    REFERENCES `e_commerce_db`.`pais` (`id_pais`),
-  CONSTRAINT `fk_telefono_proveedor1`
-    FOREIGN KEY (`id_proveedor_fk`)
-    REFERENCES `e_commerce_db`.`proveedor` (`id_proveedor`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
 -- Table `e_commerce_db`.`proveedor_tienda_producto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `e_commerce_db`.`proveedor_tienda_producto` (
@@ -330,19 +324,43 @@ CREATE TABLE IF NOT EXISTS `e_commerce_db`.`proveedor_tienda_producto` (
   `id_tienda_fk` INT NOT NULL,
   `id_proveedor_fk` INT NOT NULL,
   `id_producto_fk` INT NOT NULL,
+  `cantidad` INT NULL,
   PRIMARY KEY (`id_tienda_fk`, `id_proveedor_fk`, `id_producto_fk`),
   INDEX `fk_tienda_proveedor_tienda_idx` (`id_tienda_fk` ASC) VISIBLE,
   INDEX `fk_tienda_proveedor_proveedor1_idx` (`id_proveedor_fk` ASC) VISIBLE,
   INDEX `fk_tienda_proveedor_producto1_idx` (`id_producto_fk` ASC) VISIBLE,
+  CONSTRAINT `fk_tienda_proveedor_producto1`
+    FOREIGN KEY (`id_producto_fk`)
+    REFERENCES `e_commerce_db`.`producto` (`id_producto`),
   CONSTRAINT `fk_tienda_proveedor_proveedor1`
     FOREIGN KEY (`id_proveedor_fk`)
     REFERENCES `e_commerce_db`.`proveedor` (`id_proveedor`),
   CONSTRAINT `fk_tienda_proveedor_tienda`
     FOREIGN KEY (`id_tienda_fk`)
-    REFERENCES `e_commerce_db`.`tienda` (`id_tienda`),
-  CONSTRAINT `fk_tienda_proveedor_producto1`
-    FOREIGN KEY (`id_producto_fk`)
-    REFERENCES `e_commerce_db`.`producto` (`id_producto`)
+    REFERENCES `e_commerce_db`.`tienda` (`id_tienda`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `e_commerce_db`.`telefono`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `e_commerce_db`.`telefono` (
+  `id_telefono` INT NOT NULL AUTO_INCREMENT,
+  `id_pais_fk` INT NOT NULL,
+  `telefono` VARCHAR(15) NULL DEFAULT NULL,
+  `id_cliente_fk` INT NOT NULL,
+  PRIMARY KEY (`id_telefono`, `id_cliente_fk`),
+  UNIQUE INDEX `telefono_UNIQUE` (`telefono` ASC) VISIBLE,
+  INDEX `fk_telefono_pais1_idx` (`id_pais_fk` ASC) VISIBLE,
+  INDEX `fk_telefono_cliente1_idx` (`id_cliente_fk` ASC) VISIBLE,
+  CONSTRAINT `fk_telefono_pais1`
+    FOREIGN KEY (`id_pais_fk`)
+    REFERENCES `e_commerce_db`.`pais` (`id_pais`),
+  CONSTRAINT `fk_telefono_cliente1`
+    FOREIGN KEY (`id_cliente_fk`)
+    REFERENCES `e_commerce_db`.`cliente` (`id_cliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -350,32 +368,6 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
--- -----------------------------------------------------
--- Table `e_commerce_db`.`carrito`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e_commerce_db`.`carrito` (
-  `id_carrito` INT NOT NULL AUTO_INCREMENT,
-  `id_producto_fk` INT NOT NULL,
-  `id_cliente_fk` INT NOT NULL,
-  `cantidad` INT NULL,
-  PRIMARY KEY (`id_carrito`),
-  INDEX `fk_carrito_producto1_idx` (`id_producto_fk` ASC) VISIBLE,
-  INDEX `fk_carrito_cliente1_idx` (`id_cliente_fk` ASC) VISIBLE,
-  CONSTRAINT `fk_carrito_producto1`
-    FOREIGN KEY (`id_producto_fk`)
-    REFERENCES `e_commerce_db`.`producto` (`id_producto`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_carrito_cliente1`
-    FOREIGN KEY (`id_cliente_fk`)
-    REFERENCES `e_commerce_db`.`cliente` (`id_cliente`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-

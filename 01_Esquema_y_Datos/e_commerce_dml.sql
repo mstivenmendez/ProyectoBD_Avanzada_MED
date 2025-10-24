@@ -1133,3 +1133,88 @@ VALUES
 ('Proveedor Ropa', 'contacto@proveedorropa.com'),
 ('Proveedor Electronicos', 'contacto@proveedorelectronicos.com');
 
+--- insert telefono
+
+INSERT INTO `e_commerce_db`.`proveedor_tienda_producto` (`condiciones`, `estado`, `id_tienda_fk`, `id_proveedor_fk`, `id_producto_fk`)
+VALUES
+
+  ('Condición A', 'activo', 1, 1, 1),
+  ('Condición B', 'activo', 1, 1, 2),
+  ('Condición C', 'activo', 1, 1, 3),
+  ('Condición A', 'activo', 1, 1, 4),
+  ('Condición B', 'activo', 1, 1, 5),
+  ('Condición C', 'activo', 1, 1, 6),
+  ('Condición A', 'activo', 1, 1, 7),
+  ('Condición B', 'activo', 1, 1, 8),
+  ('Condición C', 'activo', 1, 1, 9),
+  ('Condición A', 'activo', 1, 1, 10),
+  ('Condición B', 'activo', 1, 1, 11),
+  ('Condición C', 'activo', 1, 1, 12),
+  
+
+  ('Condición A', 'activo', 1, 2, 13),
+  ('Condición B', 'activo', 1, 2, 14),
+  ('Condición C', 'activo', 1, 2, 15),
+  ('Condición A', 'activo', 1, 2, 16),
+  ('Condición B', 'activo', 1, 2, 17),
+  ('Condición C', 'activo', 1, 2, 18),
+  ('Condición A', 'activo', 1, 2, 19),
+  ('Condición B', 'activo', 1, 2, 20),
+  ('Condición C', 'activo', 1, 2, 21),
+  ('Condición A', 'activo', 1, 2, 22),
+  ('Condición B', 'activo', 1, 2, 23),
+  ('Condición C', 'activo', 1, 2, 24),
+  
+ 
+  ('Condición A', 'activo', 1, 3, 25),
+  ('Condición B', 'activo', 1, 3, 26),
+  ('Condición C', 'activo', 1, 3, 27),
+  ('Condición A', 'activo', 1, 3, 28),
+  ('Condición B', 'activo', 1, 3, 29),
+  ('Condición C', 'activo', 1, 3, 30),
+  ('Condición A', 'activo', 1, 3, 31),
+  ('Condición B', 'activo', 1, 3, 32),
+  ('Condición C', 'activo', 1, 3, 33),
+  ('Condición A', 'activo', 1, 3, 34),
+  ('Condición B', 'activo', 1, 3, 35),
+  ('Condición C', 'activo', 1, 3, 36),
+  
+ 
+  ('Condición A', 'activo', 1, 4, 37),
+  ('Condición B', 'activo', 1, 4, 38),
+  ('Condición C', 'activo', 1, 4, 39),
+  ('Condición A', 'activo', 1, 4, 40),
+  ('Condición B', 'activo', 1, 4, 41),
+  ('Condición C', 'activo', 1, 4, 42),
+  ('Condición A', 'activo', 1, 4, 43),
+  ('Condición B', 'activo', 1, 4, 44),
+  ('Condición C', 'activo', 1, 4, 45),
+  ('Condición A', 'activo', 1, 4, 46),
+  ('Condición B', 'activo', 1, 4, 47),
+  ('Condición C', 'activo', 1, 4, 48);
+
+
+---insert telefono
+
+INSERT INTO `e_commerce_db`.`telefono` (`id_pais_fk`, `telefono`, `id_cliente_fk`)
+VALUES
+  (1, '3001234567', 1),
+  (1, '3001234568', 2),
+  (1, '3001234569', 3),
+  (1, '3001234570', 4),
+  (1, '3001234571', 5),
+  (1, '3001234572', 6),
+  (1, '3001234573', 7),
+  (1, '3001234574', 8),
+  (1, '3001234575', 9),
+  (1, '3001234576', 10),
+  (1, '3001234577', 11),
+  (1, '3001234578', 12),
+  (1, '3001234579', 13),
+  (1, '3001234580', 14),
+  (1, '3001234581', 15),
+  (1, '3001234582', 16),
+  (1, '3001234583', 17),
+  (1, '3001234584', 18),
+  (1, '3001234585', 19),
+  (1, '3001234586', 20);
