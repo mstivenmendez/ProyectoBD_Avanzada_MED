@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `e_commerce_db`.`cliente` (
   `estado` ENUM('activo', 'inactivo') NULL DEFAULT 'activo',
   `ultima_compra` DATETIME NULL,
   `membresia` ENUM('oro', 'plata', 'bronce') NULL,
-  `puntos` VARCHAR(45) NULL,
+  `puntos` INT NULL,
   PRIMARY KEY (`id_cliente`),
   UNIQUE INDEX `email` (`email` ASC) VISIBLE,
   UNIQUE INDEX `id_cliente_UNIQUE` (`id_cliente` ASC) VISIBLE)
