@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `e_commerce_db`.`cliente` (
   `nombre` VARCHAR(100) NOT NULL,
   `apellido` VARCHAR(100) NOT NULL,
   `email` VARCHAR(120) NOT NULL,
-  `contraseña` VARCHAR(25) NOT NULL,
+  `clave` VARCHAR(25) NOT NULL,
   `fecha_registro` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_nacimiento` VARCHAR(45) NOT NULL,
   `estado` ENUM('activo', 'inactivo') NULL DEFAULT 'activo',
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `e_commerce_db`.`direccion_envio` (
   `ciudad` VARCHAR(45) NOT NULL,
   `barrio` VARCHAR(45) NOT NULL,
   `calle` VARCHAR(45) NOT NULL,
-  `tipo` ENUM('Envio', 'Facturacion', 'Oficina', 'Otro') NULL DEFAULT NULL,
+  `tipo` ENUM('Apartamento', 'Casa', 'Oficina', 'Otro') NULL DEFAULT NULL,
   PRIMARY KEY (`id_direccion_envio`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -114,7 +114,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `e_commerce_db`.`inventario` (
   `id_inventario` INT NOT NULL AUTO_INCREMENT,
   `sku` VARCHAR(150) NULL DEFAULT NULL,
-  `stock` VARCHAR(45) NOT NULL,
+  `stock` INT NOT NULL,
   `id_producto_fk` INT NOT NULL,
   PRIMARY KEY (`id_inventario`),
   UNIQUE INDEX `sku_UNIQUE` (`sku` ASC) VISIBLE,
@@ -377,3 +377,5 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
